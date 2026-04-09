@@ -18,9 +18,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/lefkovitzj/BetterBannerRegistration">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
 <h3 align="center">Better Banner Registration</h3>
 
