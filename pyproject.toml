@@ -1,0 +1,10 @@
+[project]
+name = "BetterBannerRegistration"
+version = "0.1.0"
+description = "A simple tool to optimize the speed of course registration on Self-Service Banner (SSB)."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "keyboard>=0.13.5",
+    "pyautogui>=0.9.54",
+]
