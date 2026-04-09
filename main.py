@@ -16,8 +16,8 @@ import keyboard
 import pyautogui
 from dotenv import load_dotenv
 
-fwd_hotkey = "f8"
-backward_hotkey = "f9"
+fwd_hotkey = "["
+backward_hotkey = "]"
 
 def load_parse_crns():
     """ Load CRNs from the .env file and parse them into a list."""
@@ -41,6 +41,7 @@ def main(crns = load_parse_crns()):
         if 0 <= index < len(crns):
             crn = crns[index]
             print(f"Entering CRN: {crn}")
+            pyautogui.press('backspace')
             pyautogui.typewrite(crn, interval=0.05)
             # Short delay to ensure the CRN is entered before the next action.
             time.sleep(0.1)
