@@ -61,7 +61,7 @@ Banner registration is a stressful time for many college students. With limited 
 
 Just collect your course registration numbers (CRNs) and Better Banner Registration will make it as fast as possible to register for your classes when registration opens. With Better Banner Registration, you can increase your chances of getting into the classes you want and reduce the stress of registration day.
 
-Tired of spamming copy and paste for each class like everyone else? With Better Banner Registration you navigate the registration form, the tool handles the CRN input, preventing the waste of precious seconds spent highlight, copying then clicking back into the banner registration form. This tool allows you to register for classes in a fraction of the time it would take to do it manually, giving you a competitive edge in securing your spot in the classes you need. For a standard 5-course (15-credit) schedule, Better Banner Registration can bring the registration time down to under 15 seconds, but speeds such as these are not guaranteed depending on outside factors such as internet connectivity, class availability, and user error.
+Tired of spamming copy and paste for each class like everyone else? With Better Banner Registration you navigate the registration form, the tool handles the CRN input, preventing the waste of precious seconds spent highlight, copying then clicking back into the banner registration form. This tool allows you to register for classes in a fraction of the time it would take to do it manually, giving you a competitive edge in securing your spot in the classes you need. For a standard 5-course (15-credit) schedule, Better Banner Registration can bring the registration time down to well under 15 seconds, but speeds such as these are not guaranteed depending on outside factors such as internet connectivity, pre-script navigation of the registration system, class availability, and user error. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -88,7 +88,7 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Get your CRNs ready. You can find these on your institution's course catalog or registration page. They are typically 5-digit numbers that uniquely identify each course section.
 2. Clone the repo
    ```sh
    git clone https://github.com/lefkovitzj/BetterBannerRegistration.git
@@ -116,7 +116,7 @@ After completing the installation steps, you can run the tool with the following
 uv run main.py
 ```
 
-While the program is running, pressing the '[' key will paste the next CRN from your list into the currently active input field, allowing you to quickly fill out the registration form. If you need to go back, the ']' key will paste the previous CRN.
+While the program is running, pressing the 'F8' key will begin the automated registration process. The tool will automatically insert the CRNs you provided in the `.env` file into the registration form, allowing you to register for your classes much faster than doing it manually. All you have to do is open the page, switch to the "Enter CRN s" tab, press F8 and then submit the form after your CRNs have been entered. The tool will handle the rest, allowing you to quickly register for your classes and increase your chances of getting into the classes you want.
 
 The program will continue to run until you choose to exit the program by pressing `CTRL+C` in the terminal window where you ran the `uv run main.py` command.
 
