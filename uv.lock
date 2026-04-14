@@ -9,6 +9,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "keyboard" },
     { name = "pyautogui" },
+    { name = "pyperclip" },
     { name = "python-dotenv" },
 ]
 
@@ -16,6 +17,7 @@ dependencies = [
 requires-dist = [
     { name = "keyboard", specifier = ">=0.13.5" },
     { name = "pyautogui", specifier = ">=0.9.54" },
+    { name = "pyperclip", specifier = ">=1.11.0" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
 ]
 

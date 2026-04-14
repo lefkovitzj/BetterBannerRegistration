@@ -14,10 +14,10 @@ import time
 
 import keyboard
 import pyautogui
+import pyperclip
 from dotenv import load_dotenv
 
-fwd_hotkey = "["
-backward_hotkey = "]"
+start_key = "f8"
 
 def load_parse_crns():
     """ Load CRNs from the .env file and parse them into a list."""
@@ -28,52 +28,28 @@ def load_parse_crns():
             print(f"Warning: '{crn}' is not a valid CRN.")
     return crns
 
-crns = load_parse_crns()
+def full_auto():
+    """ Fully automatic mode that enters all CRNs in sequence with a delay. """
+    crns = load_parse_crns()
+    print(f"Loaded CRNs: {crns}")
+    for crn in crns:
+        print(f"Entering CRN: {crn}")
+        pyperclip.copy(crn)
+        pyautogui.hotkey('ctrl', 'v')
+        if crn != crns[-1]:
+            print("Pressing Tab to move to the next field...")
+            pyautogui.press('tab')
+        #pyautogui.press('enter')
+        time.sleep(0.2)  # Adjust delay as needed
 
 def main(crns = load_parse_crns()):
     """ Main function to set up hotkeys and run the application."""
-    # Start before the first CRN so that the first hotkey press enters the first CRN.
-    current_index = -1
-    print(f"Loaded CRNs: {crns}")
-
-    def enter_crn(index):
-        """ Enter the CRN at the specified index. """
-        if 0 <= index < len(crns):
-            crn = crns[index]
-            print(f"Entering CRN: {crn}")
-            pyautogui.press('backspace')
-            pyautogui.typewrite(crn, interval=0.05)
-            # Short delay to ensure the CRN is entered before the next action.
-            time.sleep(0.1)
-            return True
-        else:
-            print("No more CRNs in that direction.")
-            return False
-
-    def next_crn():
-        """ Enter the next CRN. """
-        nonlocal current_index
-        if current_index < len(crns) - 1:
-            current_index += 1
-        enter_crn(current_index)
-
-    def previous_crn():
-        """ Enter the previous CRN. """
-        nonlocal current_index
-        if current_index > 0:
-            current_index -= 1
-        enter_crn(current_index)
-
-    keyboard.add_hotkey(fwd_hotkey, lambda: next_crn())
-    keyboard.add_hotkey(backward_hotkey, lambda: previous_crn())
-
+    keyboard.add_hotkey(start_key, full_auto)
     # Keep the program running
     while True:
         keyboard.wait()
 
 if __name__ == "__main__":
-    print("BetterBannerRegistration is running. ",
-        f"Press {fwd_hotkey} to enter the next CRN, and {backward_hotkey}",
-        " to enter the previous CRN.")
+    print(f"BetterBannerRegistration is running. Press {start_key} to begin the sequence.")
     print("Press Ctrl+C to exit.")
     main()
