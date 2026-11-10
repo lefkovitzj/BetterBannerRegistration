@@ -4,7 +4,7 @@
 File: main.py
 Description: Run the application, which provides a simple two-hotkey solution for quickly entering course registration numbers (CRNs) into the University of Dayton's course registration system which uses Self-Service Banner (SSB).
 Author: Joseph Lefkovitz (github.com/lefkovitzj)
-Date: 2026-04-08
+Date: 2026-11-09
 """
 
 __author__ = "Joseph Lefkovitz"
@@ -14,10 +14,14 @@ import time
 
 import keyboard
 import pyautogui
-import pyperclip
 from dotenv import load_dotenv
 
-start_key = "f8"
+# Shorten the delay between PyAutoGUI actions.
+pyautogui.PAUSE = 0.01
+
+FIRST_BUFFER = 0.25
+BETWEEN_BUFFER = 0.25
+START_KEY = "f8"
 
 def load_parse_crns():
     """ Load CRNs from the .env file and parse them into a list."""
@@ -28,28 +32,31 @@ def load_parse_crns():
             print(f"Warning: '{crn}' is not a valid CRN.")
     return crns
 
-def full_auto():
+def full_auto(crns):
     """ Fully automatic mode that enters all CRNs in sequence with a delay. """
-    crns = load_parse_crns()
     print(f"Loaded CRNs: {crns}")
+    start = time.perf_counter()
+
     for crn in crns:
+        if crn == crns[0]: # Additional buffer for the first CRN.
+            time.sleep(FIRST_BUFFER)
         print(f"Entering CRN: {crn}")
-        pyperclip.copy(crn)
-        pyautogui.hotkey('ctrl', 'v')
+        pyautogui.write(crn, interval=0.02)
         if crn != crns[-1]:
             print("Pressing Tab to move to the next field...")
             pyautogui.press('tab')
-        #pyautogui.press('enter')
-        time.sleep(0.2)  # Adjust delay as needed
+        time.sleep(BETWEEN_BUFFER)  # Adjust delay as needed
+    end = time.perf_counter()
+    print(f"Total time taken: {end - start:.4f} seconds")
 
 def main(crns = load_parse_crns()):
     """ Main function to set up hotkeys and run the application."""
-    keyboard.add_hotkey(start_key, full_auto)
+    keyboard.add_hotkey(START_KEY, full_auto, args=(crns,))
     # Keep the program running
     while True:
         keyboard.wait()
 
 if __name__ == "__main__":
-    print(f"BetterBannerRegistration is running. Press {start_key} to begin the sequence.")
+    print(f"BetterBannerRegistration is running. Press {START_KEY} to begin the sequence.")
     print("Press Ctrl+C to exit.")
     main()
